@@ -1,0 +1,36 @@
+batch_size: 64
+
+dataset:
+  name: chexpert
+  base_dir: "/content/drive/MyDrive/BINF4008_HW2/images"   # root folder containing train/valid subdirs
+
+metadata: "/content/drive/MyDrive/BINF4008_HW2/metadata.csv"   # 234 sample val CSV
+
+model:
+  name: medgemma
+  model_id: google/medgemma-4b-it
+  engine:
+    dtype: bfloat16
+    gpu_memory_utilization: 0.90
+    max_model_len: 5000
+  generation:
+    max_new_tokens: 512
+    temperature: 0.0
+
+prompt:
+  system: >-
+    You are an expert radiologist specializing in chest X-ray interpretation.
+    You write concise, structured radiology reports in standard clinical format.
+  user: >-
+    Analyze this chest X-ray and write a radiology report with two sections:
+
+    FINDINGS: Describe what you observe regarding the lungs, pleura, cardiac
+    silhouette, mediastinum, and any support devices. Be specific about
+    location, size, and severity.
+
+    IMPRESSION: Summarize the key findings as a concise diagnostic conclusion.
+    Explicitly state if any of the following are present or absent: pleural
+    effusion, cardiomegaly, pulmonary edema, consolidation, atelectasis,
+    pneumothorax, lung opacity, support devices, fracture.
+
+    If the image appears normal, state 'No acute cardiopulmonary findings.'

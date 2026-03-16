@@ -1,0 +1,20 @@
+dataset:
+  name: chexpert
+
+model:
+  name: medgemma
+
+splits: null
+
+metrics:
+  # output of extract_chexpert_labels.py
+  labels_path: experiments/chexpert/medgemma/labels.csv
+  # output of run_eval.py
+  predictions_path: experiments/chexpert/medgemma/predictions.jsonl
+  # where compute_metrics.py should write CSV summaries
+  output_dir: experiments/chexpert/medgemma/
+  bertscore:
+    model_type: distilbert-base-uncased
+    lang: en
+    batch_size: 16
+    rescale_with_baseline: false
